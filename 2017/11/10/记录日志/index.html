@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>
+        
+        JAVA记录操作日志步骤 · fi3ework&#39;s Studio
+        
+    </title>
+    <link rel="icon" href= /assests/favicon.ico>
+    <!-- TODO: 在font-face加载完毕后改变字体  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <!-- 提前加载place holder  -->
+    <style type="text/css">
+        @font-face {
+            font-family: 'Oswald-Regular';
+            src: url('/font/Oswald-Regular.ttf');
+        }
+    </style>
+    <style type="text/css">
+        .site-intro-placeholder {
+            position: absolute;
+            z-index: -2;
+            top: 0;
+            left: 0px;
+            width: calc(100% + 300px);
+            height: 100%;
+            background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+            background-position: center center;
+            transform: translate3d(-226px, 0, 0);
+            animation: gradient-move 2.5s ease-out 0s 1;
+        }
+        @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+    <link rel="stylesheet" href = /css/style.css?v=20171020 />
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    
+    <script src="/scripts/main.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >fi3ework&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">JAVA记录操作日志步骤</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>fi3ework's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            JAVA记录操作日志步骤
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2017/11/10</span>
+            </div>
+        
+    </div>
+</div>
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <script>
+            var browser = {
+                    versions: function () {
+                        var u = window.navigator.userAgent;
+                        return {
+                            userAgent: u,
+                            trident: u.indexOf('Trident') > -1, //IE内核
+                            presto: u.indexOf('Presto') > -1, //opera内核
+                            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+                            iPad: u.indexOf('iPad') > -1, //是否为iPad
+                            webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+                            weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+                            uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+                        };
+                    }()
+                }
+
+            function fontLoaded(){
+                console.log('font loaded');
+                if (document.getElementsByClassName('site-intro-meta')) {
+                    document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+                    document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+                    var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+                        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+                        if (postIntroTags) {
+                            postIntroTags.classList.add('post-fade-in');
+                        }
+                        if (postIntroMeat) {
+                            postIntroMeat.classList.add('post-fade-in');
+                        }
+                    }
+                }
+                
+            console.log("userAgent:" + browser.versions.userAgent);
+            // UC不支持跨域，所以直接显示
+            if (browser.versions.uc) {
+                console.log("UCBrowser");
+                fontLoaded();
+            } else {
+                WebFont.load({
+                    custom: {
+                        families: ['Oswald-Regular']
+                    },
+                    loading: function () {  //所有字体开始加载
+                        // console.log('loading');
+                    },
+                    active: function () {  //所有字体已渲染
+                        fontLoaded();
+                    },
+                    inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+                        console.log('inactive: timeout');
+                        fontLoaded();
+                    },
+                    timeout: 7000 // Set the timeout to two seconds
+                });
+            }
+        </script>
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <hr>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><blockquote>
+<p>系统日志不论是在日常的管理还是维护中都会起到很大的作用,但是在日志的记录中通常会存在很多的问题</p>
+</blockquote>
+<ol>
+<li>日志记录的不规范性</li>
+<li>日志记录的重复性</li>
+<li>日志记录的难分类</li>
+</ol>
+<blockquote>
+<p>目前日志主要记录的有三方面</p>
+</blockquote>
+<ol>
+<li>请求的入参,出参</li>
+<li>关于业务上的操作</li>
+<li>异常日常日志的打印</li>
+</ol>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="1-记录请求的出参入参"><a href="#1-记录请求的出参入参" class="headerlink" title="1.记录请求的出参入参"></a>1.记录请求的出参入参</h3><blockquote>
+<p>记录出参入参这是日志记录最好操作的一部分,而这里会存在一定的重复性,因为每个请求都需要记录,这是重复操作,完全可以使用Spring AOP进行入参和出参的记录</p>
+</blockquote>
+<pre><code>import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+
+/**
+ * Web层日志切面
+ */
+@Aspect    //这里使用@Aspect注解方式设置AOP
+@Order(5)  //值越小,越先加载
+@Component
+public class WebLogAspect {
+
+    private Logger logger = Logger.getLogger(getClass());
+
+    ThreadLocal&lt;Long&gt; startTime = new ThreadLocal&lt;&gt;();
+
+    //这里@Pointcut设置切点可以设置为Controller层的地址
+    @Pointcut(&quot;execution(public * com.training..*.*Controller(..))&quot;)
+    public void webLog(){}
+
+    //@Before指在切点方法之前执行,也就是在Controller层方法执行之前执行,这里可以通过JoinPoint获取一些有关方法的信息,在这里也可以修改参数的值
+
+    //@Before()括号里设置的是切点方法的名称
+    @Before(&quot;webLog()&quot;)
+    public void doBefore(JoinPoint joinPoint) throws Throwable {
+        startTime.set(System.currentTimeMillis());
+
+        // 接收到请求，记录请求内容
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+
+        // 记录下请求内容
+        logger.info(&quot;URL : &quot; + request.getRequestURL().toString());
+        logger.info(&quot;HTTP_METHOD : &quot; + request.getMethod());
+        logger.info(&quot;IP : &quot; + request.getRemoteAddr());
+        logger.info(&quot;CLASS_METHOD : &quot; + joinPoint.getSignature().getDeclaringTypeName() + &quot;.&quot; + joinPoint.getSignature().getName());
+        logger.info(&quot;ARGS : &quot; + Arrays.toString(joinPoint.getArgs()));
+
+    }
+
+    @AfterReturning(returning = &quot;ret&quot;, pointcut = &quot;webLog()&quot;)
+    public void doAfterReturning(Object ret) throws Throwable {
+        // 处理完请求，返回内容
+        logger.info(&quot;RESPONSE : &quot; + ret);
+        logger.info(&quot;SPEND TIME : &quot; + (System.currentTimeMillis() - startTime.get()));
+    }
+
+}
+</code></pre><h3 id="2-记录操作日志"><a href="#2-记录操作日志" class="headerlink" title="2.记录操作日志"></a>2.记录操作日志</h3><blockquote>
+<p>在系统中可能会有很多的增删改查或是会涉及到一些业务操作,这时候我们需要记录一下操作的入口,在此还可以记录下操作的类型,或是业务的名称.不过在就操作日志前需要构建日志的基础部件</p>
+</blockquote>
+<h3 id="日志对象"><a href="#日志对象" class="headerlink" title="日志对象"></a>日志对象</h3><pre><code>import java.util.Date;
+
+/**
+ * 操作日志
+ */
+public class OperationLog extends Base {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 日志类型
+     */
+    private String  logtype;
+    /**
+     * 日志名称
+     */
+    private String  logname;
+    /**
+     * 用户id
+     */
+    private Integer userid;
+    /**
+     * 类名称
+     */
+    private String  classname;
+    /**
+     * 方法名称
+     */
+    private String  method;
+    /**
+     * 创建时间
+     */
+    private Date    createtime;
+    /**
+     * 是否成功
+     */
+    private String  succeed;
+    /**
+     * 备注
+     */
+    private String  message;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLogtype() {
+        return logtype;
+    }
+
+    public void setLogtype(String logtype) {
+        this.logtype = logtype;
+    }
+
+    public String getLogname() {
+        return logname;
+    }
+
+    public void setLogname(String logname) {
+        this.logname = logname;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getSucceed() {
+        return succeed;
+    }
+
+    public void setSucceed(String succeed) {
+        this.succeed = succeed;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+}
+</code></pre><h3 id="日志对象创建工厂"><a href="#日志对象创建工厂" class="headerlink" title="日志对象创建工厂"></a>日志对象创建工厂</h3><pre><code>import com.stylefeng.guns.common.constant.state.LogSucceed;
+import com.stylefeng.guns.common.constant.state.LogType;
+import com.stylefeng.guns.common.persistence.model.LoginLog;
+import com.stylefeng.guns.common.persistence.model.OperationLog;
+
+import java.util.Date;
+
+/**
+ * 日志对象创建工厂
+ */
+public class LogFactory {
+
+    /**
+     * 创建操作日志
+     */
+    public static OperationLog createOperationLog(LogType logType, Integer userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceed succeed) {
+        OperationLog operationLog = new OperationLog();
+        operationLog.setLogtype(logType.getMessage());
+        operationLog.setLogname(bussinessName);
+        operationLog.setUserid(userId);
+        operationLog.setClassname(clazzName);
+        operationLog.setMethod(methodName);
+        operationLog.setCreatetime(new Date());
+        operationLog.setSucceed(succeed.getMessage());
+        operationLog.setMessage(msg);
+        return operationLog;
+    }
+
+    /**
+     * 创建登录日志
+     */
+    public static LoginLog createLoginLog(LogType logType, Integer userId, String msg,String ip) {
+        LoginLog loginLog = new LoginLog();
+        loginLog.setLogname(logType.getMessage());
+        loginLog.setUserid(userId);
+        loginLog.setCreatetime(new Date());
+        loginLog.setSucceed(LogSucceed.SUCCESS.getMessage());
+        loginLog.setIp(ip);
+        loginLog.setMessage(msg);
+        return loginLog;
+    }
+}
+</code></pre><h3 id="日志任务创建工厂"><a href="#日志任务创建工厂" class="headerlink" title="日志任务创建工厂"></a>日志任务创建工厂</h3><blockquote>
+<p>日志任务创建工厂的作用是将日志记录存储到数据库中</p>
+</blockquote>
+<pre><code>import com.stylefeng.guns.common.constant.state.LogSucceed;
+import com.stylefeng.guns.common.constant.state.LogType;
+import com.stylefeng.guns.common.persistence.dao.LoginLogMapper;
+import com.stylefeng.guns.common.persistence.dao.OperationLogMapper;
+import com.stylefeng.guns.common.persistence.model.LoginLog;
+import com.stylefeng.guns.common.persistence.model.OperationLog;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.util.SpringContextHolder;
+import com.stylefeng.guns.core.util.ToolUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.TimerTask;
+
+/**
+ * 日志操作任务创建工厂
+ */
+public class LogTaskFactory {
+
+    private static Logger logger  = LoggerFactory.getLogger(LogManager.class);
+    //LoginLogMapper记录登录登出日志
+    private static LoginLogMapper loginLogMapper = SpringContextHolder.getBean(LoginLogMapper.class);
+    //OperationLogMapper记录操作日志        
+    private static OperationLogMapper operationLogMapper = SpringContextHolder.getBean(OperationLogMapper.class);
+
+    public static TimerTask loginLog(final Integer userId, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    LoginLog loginLog = LogFactory.createLoginLog(LogType.LOGIN, userId, null, ip);
+                    loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建登录日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask loginLog(final String username, final String msg, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                LoginLog loginLog = LogFactory.createLoginLog(
+                        LogType.LOGIN_FAIL, null, &quot;账号:&quot; + username + &quot;,&quot; + msg, ip);
+                try {
+                    loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建登录失败异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask exitLog(final Integer userId, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                LoginLog loginLog = LogFactory.createLoginLog(LogType.EXIT, userId, null,ip);
+                try {
+                    loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建退出日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask bussinessLog(final Integer userId, final String bussinessName, final String clazzName, final String methodName, final String msg) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                OperationLog operationLog = LogFactory.createOperationLog(
+                        LogType.BUSSINESS, userId, bussinessName, clazzName, methodName, msg, LogSucceed.SUCCESS);
+                try {
+                    operationLogMapper.insert(operationLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建业务日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask exceptionLog(final Integer userId, final Exception exception) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                String msg = ToolUtil.getExceptionMsg(exception);
+                OperationLog operationLog = LogFactory.createOperationLog(
+                        LogType.EXCEPTION, userId, &quot;&quot;, null, null, msg, LogSucceed.FAIL);
+                try {
+                    operationLogMapper.insert(operationLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建异常日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+}
+</code></pre><h3 id="记录操作日志"><a href="#记录操作日志" class="headerlink" title="记录操作日志"></a>记录操作日志</h3><blockquote>
+<p>这一步是最关键的一环</p>
+<p>原理:通过自定义的注解@BussinessLog(可以任意命名),里面定义了业务的名称,被修改的实体的唯一标识,字典(用于查找key的中文名称和字段的中文名称),然后通过AOP,拦截所有添加了@BussinessLog注解的方法,解析其注解里面的属性,然后记录到对应的操作日志表中,完成操作日志的记录</p>
+</blockquote>
+<h4 id="BussinessLog"><a href="#BussinessLog" class="headerlink" title="@BussinessLog"></a>@BussinessLog</h4><pre><code>import java.lang.annotation.*;
+
+/**
+ * 标记需要做业务日志的方法
+ */
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
+public @interface BussinessLog {
+
+    /**
+     * 业务的名称,例如:&quot;修改菜单&quot;
+     */
+    String value() default &quot;&quot;;
+
+    /**
+     * 被修改的实体的唯一标识,例如:菜单实体的唯一标识为&quot;id&quot;
+     */
+    String key() default &quot;id&quot;;
+
+    /**
+     * 字典(用于查找key的中文名称和字段的中文名称)
+     */
+    String dict() default &quot;SystemDict&quot;;
+}
+</code></pre><h4 id="BussinessLog注解拦截AOP"><a href="#BussinessLog注解拦截AOP" class="headerlink" title="@BussinessLog注解拦截AOP"></a>@BussinessLog注解拦截AOP</h4><pre><code>import com.stylefeng.guns.common.annotion.log.BussinessLog;
+import com.stylefeng.guns.common.constant.dictmap.base.AbstractDictMap;
+import com.stylefeng.guns.common.constant.dictmap.factory.DictMapFactory;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.log.LogObjectHolder;
+import com.stylefeng.guns.core.log.factory.LogTaskFactory;
+import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.shiro.ShiroUser;
+import com.stylefeng.guns.core.support.HttpKit;
+import com.stylefeng.guns.core.util.Contrast;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.Map;
+
+/**
+ * 日志记录
+ */
+@Aspect
+@Component
+public class LogAop {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Pointcut(value = &quot;@annotation(com.stylefeng.guns.common.annotion.log.BussinessLog)&quot;)
+    public void cutService() {
+    }
+
+    @Around(&quot;cutService()&quot;)
+    public Object recordSysLog(ProceedingJoinPoint point) throws Throwable {
+
+        //先执行业务
+        Object result = point.proceed();
+
+        try {
+            handle(point);
+        } catch (Exception e) {
+            log.error(&quot;日志记录出错!&quot;, e);
+        }
+
+        return result;
+    }
+
+    private void handle(ProceedingJoinPoint point) throws Exception {
+
+        //获取拦截的方法名
+        Signature sig = point.getSignature();
+        MethodSignature msig = null;
+        if (!(sig instanceof MethodSignature)) {
+            throw new IllegalArgumentException(&quot;该注解只能用于方法&quot;);
+        }
+        msig = (MethodSignature) sig;
+        Object target = point.getTarget();
+        Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
+        String methodName = currentMethod.getName();
+
+        //如果当前用户未登录，不做日志
+        ShiroUser user = ShiroKit.getUser();
+        if (null == user) {
+            return;
+        }
+
+        //获取拦截方法的参数
+        String className = point.getTarget().getClass().getName();
+        Object[] params = point.getArgs();
+
+        //获取操作名称
+        BussinessLog annotation = currentMethod.getAnnotation(BussinessLog.class);
+        String bussinessName = annotation.value();
+        String key = annotation.key();
+        String dictClass = annotation.dict();
+
+        StringBuilder sb = new StringBuilder();
+        for (Object param : params) {
+            sb.append(param);
+            sb.append(&quot; &amp; &quot;);
+        }
+
+        //如果涉及到修改,比对变化
+        String msg;
+        if (bussinessName.indexOf(&quot;修改&quot;) != -1 || bussinessName.indexOf(&quot;编辑&quot;) != -1) {
+            Object obj1 = LogObjectHolder.me().get();
+            Map&lt;String, String&gt; obj2 = HttpKit.getRequestParameters();
+            msg = Contrast.contrastObj(dictClass, key, obj1, obj2);
+        } else {
+            Map&lt;String, String&gt; parameters = HttpKit.getRequestParameters();
+            AbstractDictMap dictMap = DictMapFactory.createDictMap(dictClass);
+            msg = Contrast.parseMutiKey(dictMap,key,parameters);
+        }
+
+        LogManager.me().executeLog(LogTaskFactory.bussinessLog(user.getId(), bussinessName, className, methodName, msg));
+    }
+}
+</code></pre><h4 id="BussinessLog使用实例"><a href="#BussinessLog使用实例" class="headerlink" title="@BussinessLog使用实例"></a>@BussinessLog使用实例</h4><pre><code>/**
+ * 新增字典
+ @param dictValues 格式例如   &quot;1:启用;2:禁用;3:冻结&quot;
+ */
+@BussinessLog(value = &quot;添加字典记录&quot;, key = &quot;dictName,dictValues&quot;, dict = com.stylefeng.guns.common.constant.Dict.DictMap)
+@RequestMapping(value = &quot;/add&quot;)
+@Permission(Const.ADMIN_NAME)
+@ResponseBody
+public Object add(String dictName, String dictValues) {
+    if (ToolUtil.isOneEmpty(dictName, dictValues)) {
+        throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+    }
+    dictService.addDict(dictName, dictValues);
+    return SUCCESS_TIP;
+}
+</code></pre><h3 id="3-记录异常日志"><a href="#3-记录异常日志" class="headerlink" title="3.记录异常日志"></a>3.记录异常日志</h3><blockquote>
+<p>记录异常日志其实也是一个重复式的过程,这也可以通过统一的处理来记录异常抛出的日志</p>
+</blockquote>
+<pre><code>import com.stylefeng.guns.common.constant.tips.ErrorTip;
+import com.stylefeng.guns.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.common.exception.BussinessException;
+import com.stylefeng.guns.common.exception.InvalidKaptchaException;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.log.factory.LogTaskFactory;
+import com.stylefeng.guns.core.shiro.ShiroKit;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.CredentialsException;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.session.InvalidSessionException;
+import org.apache.shiro.session.UnknownSessionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.UndeclaredThrowableException;
+
+import static com.stylefeng.guns.core.support.HttpKit.getIp;
+import static com.stylefeng.guns.core.support.HttpKit.getRequest;
+
+/**
+ * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）
+ */
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    /**
+     * 拦截业务异常
+     */
+    @ExceptionHandler(BussinessException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorTip notFount(BussinessException e) {
+        LogManager.me().executeLog(LogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
+        getRequest().setAttribute(&quot;tip&quot;, e.getMessage());
+        log.error(&quot;业务异常:&quot;, e);
+        return new ErrorTip(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 用户未登录
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String unAuth(AuthenticationException e) {
+        log.error(&quot;用户未登陆：&quot;, e);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 账号被冻结
+     */
+    @ExceptionHandler(DisabledAccountException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String accountLocked(DisabledAccountException e, Model model) {
+        String username = getRequest().getParameter(&quot;username&quot;);
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, &quot;账号被冻结&quot;, getIp()));
+        model.addAttribute(&quot;tips&quot;, &quot;账号被冻结&quot;);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 账号密码错误
+     */
+    @ExceptionHandler(CredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String credentials(CredentialsException e, Model model) {
+        String username = getRequest().getParameter(&quot;username&quot;);
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, &quot;账号密码错误&quot;, getIp()));
+        model.addAttribute(&quot;tips&quot;, &quot;账号密码错误&quot;);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 验证码错误
+     */
+    @ExceptionHandler(InvalidKaptchaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String credentials(InvalidKaptchaException e, Model model) {
+        String username = getRequest().getParameter(&quot;username&quot;);
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, &quot;验证码错误&quot;, getIp()));
+        model.addAttribute(&quot;tips&quot;, &quot;验证码错误&quot;);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 无权访问该资源
+     */
+    @ExceptionHandler(UndeclaredThrowableException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorTip credentials(UndeclaredThrowableException e) {
+        getRequest().setAttribute(&quot;tip&quot;, &quot;权限异常&quot;);
+        log.error(&quot;权限异常!&quot;, e);
+        return new ErrorTip(BizExceptionEnum.NO_PERMITION);
+    }
+
+    /**
+     * 拦截未知的运行时异常
+     */
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorTip notFount(RuntimeException e) {
+        LogManager.me().executeLog(LogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
+        getRequest().setAttribute(&quot;tip&quot;, &quot;服务器未知运行时异常&quot;);
+        log.error(&quot;运行时异常:&quot;, e);
+        return new ErrorTip(BizExceptionEnum.SERVER_ERROR);
+    }
+
+    /**
+     * session失效的异常拦截
+     */
+    @ExceptionHandler(InvalidSessionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String sessionTimeout(InvalidSessionException e, Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute(&quot;tips&quot;, &quot;session超时&quot;);
+        assertAjax(request, response);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * session异常
+     */
+    @ExceptionHandler(UnknownSessionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String sessionTimeout(UnknownSessionException e, Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute(&quot;tips&quot;, &quot;session超时&quot;);
+        assertAjax(request, response);
+        return &quot;/login.html&quot;;
+    }
+
+    private void assertAjax(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getHeader(&quot;x-requested-with&quot;) != null
+                &amp;&amp; request.getHeader(&quot;x-requested-with&quot;).equalsIgnoreCase(&quot;XMLHttpRequest&quot;)) {
+            //如果是ajax请求响应头会有，x-requested-with
+            response.setHeader(&quot;sessionstatus&quot;, &quot;timeout&quot;);//在响应头设置session状态
+        }
+    }
+
+}
+</code></pre>
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-pager">
+        
+        
+            <li class="previous">
+                <a href= "/2017/10/31/one/" title= 第一次的记录 >
+                    <span>Previous Post</span>
+                    <span>第一次的记录</span>
+                </a>
+            </li>
+        
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">Theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper">
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-记录请求的出参入参"><span class="toc-number">2.1.</span> <span class="toc-text">1.记录请求的出参入参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-记录操作日志"><span class="toc-number">2.2.</span> <span class="toc-text">2.记录操作日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志对象"><span class="toc-number">2.3.</span> <span class="toc-text">日志对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志对象创建工厂"><span class="toc-number">2.4.</span> <span class="toc-text">日志对象创建工厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志任务创建工厂"><span class="toc-number">2.5.</span> <span class="toc-text">日志任务创建工厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记录操作日志"><span class="toc-number">2.6.</span> <span class="toc-text">记录操作日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BussinessLog"><span class="toc-number">2.6.1.</span> <span class="toc-text">@BussinessLog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BussinessLog注解拦截AOP"><span class="toc-number">2.6.2.</span> <span class="toc-text">@BussinessLog注解拦截AOP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BussinessLog使用实例"><span class="toc-number">2.6.3.</span> <span class="toc-text">@BussinessLog使用实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-记录异常日志"><span class="toc-number">2.7.</span> <span class="toc-text">3.记录异常日志</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top">&#xe639;</div>
+    <div class="sidebar">
+    <div class="sidebar-header sidebar-header-show-archive">
+        <div class="sidebar-category">
+            <span class="sidebar-archive-link"><span class="iconfont-archer">&#xe67d;</span>Archive</span>
+            <span class="sidebar-tags-link"><span class="iconfont-archer">&#xe610;</span>Tag</span>
+        </div>
+    </div>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-archive">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 3 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2017/10/31/hello-world/" >Hello World</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2017/10/31/one/" >第一次的记录</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2017/11/10/记录日志/" >JAVA记录操作日志步骤</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #888; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tag-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var jsInfo = {
+        root: '/'
+    }
+</script>
+    <!-- 不蒜子  -->
+    
+    <!-- CNZZ统计  -->
+    
+    </div>
+    </body>
+</html>
+
+

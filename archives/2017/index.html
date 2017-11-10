@@ -149,6 +149,50 @@
     
     
         <article class="index-post">
+            <a class="content-show-full" href = "/2017/11/10/记录日志/" >
+                    <h2 class="abstract-title">
+                        
+                        <span>JAVA记录操作日志步骤</span>
+                    </h2>
+                <div class="abstract-content">
+                    
+说明
+系统日志不论是在日常的管理还是维护中都会起到很大的作用,但是在日志的记录中通常会存在很多的问题
+
+
+日志记录的不规范性
+日志记录的重复性
+日志记录的难分类
+
+
+目前日志主要记录的有三方面
+
+
+请求的入参,出参
+关于业务上的操作
+异常日常日志的打印
+
+解决方案1.记录请求的出参入参
+记录出参入参这是日志记录最好操作的一部分,而这里会存在一定的重复性,因为每个请求都需要记录,这是重复操作,完全可以使用Spring AOP进行入参和出参的记录
+
+import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
+impo...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/11/10</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="content-show-full" href = "/2017/10/31/one/" >
                     <h2 class="abstract-title">
                         
@@ -269,12 +313,35 @@ More...
     
     
     
-    <div class="total-archive"> Total : 2 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 3 </div>
     
     <div class="post-archive">
     
     
     
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2017/10/31/hello-world/" >Hello World</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2017 </div>
     <ul class="year-list">
@@ -295,7 +362,7 @@ More...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2017/10/31/hello-world/" >Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2017/11/10/记录日志/" >JAVA记录操作日志步骤</a>
         </li>
     
     </div>
