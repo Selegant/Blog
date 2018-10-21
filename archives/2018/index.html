@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        第一次的记录 · Selegant Blog
+        Selegant Blog
         
     </title>
     <link rel="icon" href= /assests/favicon.ico>
@@ -50,22 +50,11 @@
     
 </head>
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Selegant Blog</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">第一次的记录</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>Selegant Blog</a>
 </header>
@@ -73,37 +62,21 @@
         <div class="site-intro">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
-    <div class="site-intro-img" style="background-image: url(http://www.selegant.xin/intro/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-placeholder"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            第一次的记录
-            <!-- 404 -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <!-- 文章页标签  -->
-            
-            <div class="post-intro-meta">
-                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/10/31</span>
-            </div>
         
     </div>
 </div>
@@ -171,34 +144,76 @@
             }
         </script>
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;作为一个程序员也是第一次接触个人博客的搭建,以后可能会把一些重要的东西记录在这里面,会记录一些生活或是工作中的琐事,或是一次旅行<br>亦会记录一些有关技术方面的博文,希望可以坚持下去完善自己的博客</p>
-
-    </article>
-    <!-- 前后页  -->
-    <ul class="post-pager">
-        
-            <li class="next">
-                <a href= "/2017/11/10/记录日志/" title= JAVA记录操作日志步骤 >
-                    <span>Next Post</span>
-                    <span>JAVA记录操作日志步骤</span>
-                </a>
-            </li>
-        
-        
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
+            <main class="main index-page">
     
     
-    <!--PC版-->
+    
+        <article class="index-post">
+            <a class="content-show-full" href = "/2018/10/21/记录日志/" >
+                    <h2 class="abstract-title">
+                        
+                        <span>JAVA记录操作日志步骤</span>
+                    </h2>
+                <div class="abstract-content">
+                    
+说明
+系统日志不论是在日常的管理还是维护中都会起到很大的作用,但是在日志的记录中通常会存在很多的问题
 
-    <!--PC版-->
+
+日志记录的不规范性
+日志记录的重复性
+日志记录的难分类
 
 
+目前日志主要记录的有三方面
+
+
+请求的入参,出参
+关于业务上的操作
+异常日常日志的打印
+
+解决方案1.记录请求的出参入参
+记录出参入参这是日志记录最好操作的一部分,而这里会存在一定的重复性,因为每个请求都需要记录,这是重复操作,完全可以使用Spring AOP进行入参和出参的记录
+
+import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
+impo...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/10/21</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="content-show-full" href = "/2018/10/21/one/" >
+                    <h2 class="abstract-title">
+                        
+                        <span>第一次的记录</span>
+                    </h2>
+                <div class="abstract-content">
+                    &nbsp;&nbsp;&nbsp;&nbsp;作为一个程序员也是第一次接触个人博客的搭建,以后可能会把一些重要的东西记录在这里面,会记录一些生活或是工作中的琐事,或是一次旅行亦会记录一些有关技术方面的博文,希望可以坚持下去完善自己的博客
+
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/10/21</span>
+                </div>
+            </div>
+        </article>
+    
+    <!-- paginator  -->
     
 </main>
             <!-- profile -->
@@ -241,13 +256,6 @@
     </div>
     <!-- toc -->
     
-    <div class="toc-wrapper">
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        
-    </div>
-    
     <div class="back-top">&#xe639;</div>
     <div class="sidebar">
     <div class="sidebar-header sidebar-header-show-archive">
@@ -277,34 +285,24 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 2 </div>
     
     <div class="post-archive">
     
     
     
-
     
-    <div class="archive-year"> 2017 </div>
+    <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2017/11/10/记录日志/" >JAVA记录操作日志步骤</a>
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/记录日志/" >JAVA记录操作日志步骤</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2017/10/31/one/" >第一次的记录</a>
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/one/" >第一次的记录</a>
         </li>
     
     </div>
