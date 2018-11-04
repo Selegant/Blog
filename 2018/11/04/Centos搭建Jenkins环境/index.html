@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        Selegant Blog
+        Centos搭建Jenkins环境 · Selegant Blog
         
     </title>
     <link rel="shortcut icon" href= https://selegant.github.io/avatar/head.jpg>
@@ -50,13 +50,22 @@
     
 </head>
     
-        <body class="home-body">
+        <body class="post-body">
     
     
-<header class="header index-header">
+<header class="header">
 
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Selegant Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Centos搭建Jenkins环境</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Selegant Blog</a>
 </header>
@@ -66,17 +75,17 @@
     <!-- 主页  -->
     
     
-    <!-- 文章页  -->
+    <!-- 404页  -->
             
-    <div class="site-intro-img" style="background-image: url(https://selegant.github.io/intro/intro-desktop.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(https://selegant.github.io/intro/post-bg.jpg)"></div>
     <div class="site-intro-placeholder"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Selegant Blog
-            <!-- 文章页  -->
+            Centos搭建Jenkins环境
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
@@ -84,12 +93,17 @@
             <!-- 主页副标题  -->
             
             
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/11/04</span>
+            </div>
         
     </div>
 </div>
@@ -157,188 +171,79 @@
             }
         </script>
         <div class="container container-unloaded">
-            <main class="main index-page">
+            <main class="main post-page">
+    <article class="article-entry">
+        <hr>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><blockquote>
+<p>Jenkins环境的搭建会有易于开发以及测试环境的快速构建，其中我刚开始尝试了使用Docker搭建Jenkins环境，但是因为刚接触Docker在使用过程中遇到了Docker重置的情况所以在此为了快速应用到实际项目中去使用普通的搭建Jenkins的方法</p>
+</blockquote>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ol>
+<li>Centos7版本</li>
+<li>JDK8</li>
+<li>Jenkins2.7.3版本</li>
+</ol>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><blockquote>
+<p>此处省略安装JDK的步骤</p>
+</blockquote>
+<ol>
+<li><p>安装Jenkins</p>
+<p> 1.wget <a href="http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.3-1.1.noarch.rpm" target="_blank" rel="external">http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.3-1.1.noarch.rpm</a></p>
+<p> 2.rpm -ivh jenkins-2.7.3-1.1.noarch.rpm</p>
+</li>
+</ol>
+<blockquote>
+<p>Jenkins包下载可能比较慢，所以建议使用以上链接用迅雷下载</p>
+</blockquote>
+<ol>
+<li><p>设置Jenkins的端口号</p>
+<p> 进入/etc/sysconfig/文件夹打开jenkins文件修改默认8080端口号</p>
+</li>
+<li><p>开始Jenkins服务</p>
+<p> service jenkins start/stop/restart</p>
+</li>
+<li><p>打开Jenkins</p>
+<p> 直接在浏览器上访问ip加设置的端口号，进入Jenkins的登录页面，登录页面中会提示密码在哪个文件中，取出密码点击Enter就可进入Jenkins页面了。</p>
+</li>
+<li><p>配置Jenkins以及注意事项</p>
+<p> 1.首先安装Jenkins需要的插件直接选择推荐安装，安装完成后如果有未完成的可以先通过，后期再安装。</p>
+<p> 2.安装完成后会提示新建用户，这时可以注册个用户，请记住这里的用户名和密码。</p>
+<p> 3.登录后，进入系统设置-&gt;Configure Global Security将”Jenkins专有用户数据库”选中，然后允许用户注册，点击保存，然后可以试一下注销，然后是否可以用刚才注册的用户进行登录。</p>
+<p> 4.再次登录后，点击”新建项目”构建一个自由风格的软件项目。</p>
+<p> 5.然后选中源码管理模块，设置管理为GIT，然后填入Repository URL字段，并且需要设置下GIT的分支模块。</p>
+<p> 6.这时需要再回到刚才的搭建Jenkins的服务器，然后使用ssh-keygen -t rsa的命令生成密钥。</p>
+<p> 7.将生成好的公钥提供给对应的GIT管理平台，然后将私钥填入Jenkins的私钥部分。点击保存。</p>
+<p> 8.这时Jenkins新建的项目就可以构建了，然后点击”一键构建”就可以构建整个项目，然后访问对应的项目端口就行了。</p>
+</li>
+</ol>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://www.cnblogs.com/reblue520/p/7130914.html" target="_blank" rel="external">https://www.cnblogs.com/reblue520/p/7130914.html</a><br><a href="https://www.cnblogs.com/loveyouyou616/p/8714544.html" target="_blank" rel="external">https://www.cnblogs.com/loveyouyou616/p/8714544.html</a></p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-pager">
+        
+        
+            <li class="previous">
+                <a href= "/2018/11/04/记录日志/" title= JAVA记录操作日志步骤 >
+                    <span>Previous Post</span>
+                    <span>JAVA记录操作日志步骤</span>
+                </a>
+            </li>
+        
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
     
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2018/11/04/Centos搭建Jenkins环境/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>Centos搭建Jenkins环境</span>
-                    </h2>
-                <div class="abstract-content">
-                    
-说明
-Jenkins环境的搭建会有易于开发以及测试环境的快速构建，其中我刚开始尝试了使用Docker搭建Jenkins环境，但是因为刚接触Docker在使用过程中遇到了Docker重置的情况所以在此为了快速应用到实际项目中去使用普通的搭建Jenkins的方法
+    <!--PC版-->
 
-环境
-Centos7版本
-JDK8
-Jenkins2.7.3版本
-
-安装步骤
-此处省略安装JDK的步骤
+    <!--PC版-->
 
 
-安装Jenkins
- 1.wget http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.3-1.1.noarch.rpm
- 2.rpm -ivh jenkins-2.7....
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/11/04</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2018/11/04/记录日志/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>JAVA记录操作日志步骤</span>
-                    </h2>
-                <div class="abstract-content">
-                    
-说明
-系统日志不论是在日常的管理还是维护中都会起到很大的作用,但是在日志的记录中通常会存在很多的问题
-
-
-日志记录的不规范性
-日志记录的重复性
-日志记录的难分类
-
-
-目前日志主要记录的有三方面
-
-
-请求的入参,出参
-关于业务上的操作
-异常日常日志的打印
-
-解决方案1.记录请求的出参入参
-记录出参入参这是日志记录最好操作的一部分,而这里会存在一定的重复性,因为每个请求都需要记录,这是重复操作,完全可以使用Spring AOP进行入参和出参的记录
-
-import org.apache.log4j.Logger;
-import org.aspectj.lang.JoinPoint;
-impo...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/11/04</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2018/10/23/冒泡排序/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>JAVA实现冒泡排序</span>
-                    </h2>
-                <div class="abstract-content">
-                    
-原理：比较两个相邻的元素，将值大的元素交换至右端。
-思路：依次比较相邻的两个数，将小数放在前面，大数放在后面。即在第一趟：首先比较第1个和第2个数，将小数放前，大数放后。然后比较第2个数和第3个数，将小数放前，大数放后，如此继续，直至比较最后两个数，将小数放前，大数放后。重复第一趟步骤，直至全部排序完成。
-第一趟比较完成后，最后一个数一定是数组中最大的一个数，所以第二趟比较的时候最后一个数不参与比较；
-第二趟比较完成后，倒数第二个数也一定是数组中第二大的数，所以第三趟比较的时候最后两个数不参与比较；
-依次类推，每一趟比较次数-1；
-……
-举例说明：要排序数组：int[] arr={6,...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/10/23</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2018/10/21/one/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>第一次的记录</span>
-                    </h2>
-                <div class="abstract-content">
-                    &nbsp;&nbsp;&nbsp;&nbsp;作为一个程序员也是第一次接触个人博客的搭建,以后可能会把一些重要的东西记录在这里面,会记录一些生活或是工作中的琐事,或是一次旅行亦会记录一些有关技术方面的博文,希望可以坚持下去完善自己的博客
-
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/10/21</span>
-                </div>
-            </div>
-        </article>
-    
-    <!-- paginator  -->
     
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" src= /avatar/head.jpg >
-    <div class="profile-name">Selegant</div>
-    
-    <div class="profile-signature">
-        witness me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:15357433779@163.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/Selegant" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-            
-                <a href="//weibo.com/3302134975/profile?topnav=1&wvr=6&is_all=1" class="iconfont-archer weibo" target="_blank" title="weibo"></a>
-            
-        
-    
-
-    </div>
-    
-    
-    
-        <div class="about-me">
-            <div>
-                <a href = "/about" >ABOUT ME</a>
-            </div>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
@@ -377,6 +282,13 @@ impo...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper">
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装步骤"><span class="toc-number">3.</span> <span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">4.</span> <span class="toc-text">参考文章</span></a></li></ol>
+    </div>
     
     <div class="back-top">&#xe639;</div>
     <div class="sidebar">
